@@ -30,6 +30,9 @@ function SynologyAccessory(log, config) {
     this.log = log;
     this.config = config;
     this.name = config.name;
+    this.serialnumber = config.serialnumber;
+    this.model = config.model;
+    this.version = config.version;
 
     this.log('Diskstation url: http' + (config.secure ? 's' : '') + '://' + config.ip + ':' + config.port);
 
@@ -41,11 +44,12 @@ function SynologyAccessory(log, config) {
       version: config.version,
       user: config.user || config.account,
       passwd: config.password,
+      serialnumber: config.serialnumber,
+      model: config.model,
       timeout: config.timeout || 3000
     });
 
     var that = this;
-
     this.doPolling = config.doPolling || false;
 	this.pollingInterval = config.pollingInterval || 60;
 	this.pollingInterval = parseInt(this.pollingInterval);
@@ -236,7 +240,10 @@ SynologyAccessory.prototype.getServices = function () {
 
     informationService
         .setCharacteristic(Characteristic.Name, this.name)
-        .setCharacteristic(Characteristic.Manufacturer, 'Synology');
+        .setCharacteristic(Characteristic.Manufacturer, 'Synology')
+        .setCharacteristic(Characteristic.Model, this.model)
+        .setCharacteristic(Characteristic.SerialNumber, this.serialnumber)
+        .setCharacteristic(Characteristic.FirmwareRevision, this.version);
 
     this.switchService = new Service.Switch(this.name);
     this.switchService.getCharacteristic(Characteristic.On)
