@@ -32,6 +32,8 @@ Example:
                 "name": "Diskstation", // the name is displayed in homekit
                 "ip": "192.168.178.1", // ip of your diskstation
                 "mac": "A1:B3:C3:D4:E5:EX", // mac of your diskstation
+                "serialnumber": "SS0021456847",
+                "model": "DS720+",
                 "port": "port number", // (optional) port number of the webinterface, default 5000 (or 5001 if you set secure=true)
                 "secure": false, // set this to true if you use a secure connection (https)
                 "account": "admin",
